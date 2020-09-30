@@ -21,7 +21,7 @@ class UserController {
         if (user && bcrypt.compareSync(password, user.password)) {
           const access_token = jwt.sign({ _id: user._id }, 'SALT_ACADEMY');
           res.status(200).json({ success: true, access_token });
-        } else throw { name: 'LOGIN_FAIL' };
+        } else throw { name: 'LOGIN_FAILED' };
       })
       .catch(next);
   }

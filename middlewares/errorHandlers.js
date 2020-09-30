@@ -12,7 +12,7 @@ module.exports = (err, req, res, next) => {
         code = 500;
         message = 'Mongoose error!';
         break;
-      case 'LOGIN_FAIL':
+      case 'LOGIN_FAILED':
         code = 401;
         message = 'Email and password combination not found!';
         break;
