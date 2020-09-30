@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const townhallController = require('../controllers/townhallController');
 
 const townhallSchema = new mongoose.Schema({
   _userId: {
@@ -10,4 +11,18 @@ const townhallSchema = new mongoose.Schema({
   description: String,
 });
 
-module.exports = mongoose.model('Townhall', townhallSchema);
+townhallSchema.pre('save', function (next) {
+    Townhall.findOne({ title: this.title })
+      .then((user) => {
+        if (user) next({ name: 'ALREADY_EXISTS' });
+        else {
+          next({name: 'ALREADY_EXISTS'});
+        }
+      })
+      .catch((e) => next({ name: 'MONGOOSE_ERROR' }));
+  });
+
+const Townhall =  mongoose.model('Townhall', townhallSchema);
+
+
+module.exports = Townhall

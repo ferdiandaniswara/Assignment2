@@ -4,12 +4,12 @@ const jwt = require('jsonwebtoken');
 
 class UserController {
   static register(req, res, next) {
-    const { email, password } = req.body;
-    const user = new User({ email, password });
+    const { email, password, nickname } = req.body;
+    const user = new User({ email, password, nickname });
     user
       .save()
       .then((user) => {
-        res.status(201).json({ success: true, data: { _id: user._id, email: user.email } });
+        res.status(201).json({ success: true, data: { _id: user._id, email: user.email, nickname } });
       })
       .catch(next);
   }

@@ -6,7 +6,7 @@ module.exports = (err, req, res, next) => {
     switch (name) {
       case 'ALREADY_EXISTS':
         code = 409;
-        message = 'Already exists!';
+        message = `Account is already exists!`;
         break;
       case 'MONGOOSE_ERROR':
         code = 500;

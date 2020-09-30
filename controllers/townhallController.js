@@ -5,7 +5,8 @@ class townhallController {
     Townhall.find({ _userId: req._userId })
     .then((result) => {
       res.status(200).json({ success: true, data: result });
-    });
+    })
+    .catch(next);
   }
 
   static post(req, res, next) {
