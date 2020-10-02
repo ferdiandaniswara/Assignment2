@@ -2,9 +2,19 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true },
-  password: { type: String, required: true },
+  email: { type: String, 
+           trim:true, 
+           required: true,
+           unique: true,
+           index: true,
+           match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+   },
+  password: { type: String, trim:true, required: true },
   nickname: String,
+  townhallId:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Townhall',
+  }
 });
 
 userSchema.pre('save', function (next) {

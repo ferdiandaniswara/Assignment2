@@ -9,19 +9,21 @@ const townhallSchema = new mongoose.Schema({
   },
   title: { type: String, required: true },
   description: String,
+  health: { type: Number, default: 500},
+  energy: { type: Number, default: 20, max: 50},
 });
 
-townhallSchema.pre('save', function (next) {
-    Townhall.findOne({ title: this.title })
-      .then((user) => {
-        if (user) next({ name: 'ALREADY_EXISTS' });
+/*townhallSchema.pre('save', function (next) {
+    Townhall.find()
+      .then((result) => {
+        if (!result) next({ name: 'ONLY_HAVE_ONE' });
         else {
-          next({name: 'ALREADY_EXISTS'});
+          next();
         }
       })
       .catch((e) => next({ name: 'MONGOOSE_ERROR' }));
   });
-
+*/
 const Townhall =  mongoose.model('Townhall', townhallSchema);
 
 

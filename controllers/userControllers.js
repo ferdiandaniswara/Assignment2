@@ -12,6 +12,7 @@ class UserController {
         res.status(201).json({ success: true, data: { _id: user._id, email: user.email, nickname } });
       })
       .catch(next);
+      //.catch((e) => next({ name: 'MONGOOSE_ERROR' }));
   }
 
   static login(req, res, next) {
