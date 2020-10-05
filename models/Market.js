@@ -1,16 +1,13 @@
 const mongoose = require('mongoose');
-const townhallController = require('../controllers/townhallController');
 
-const townhallSchema = new mongoose.Schema({
+const marketSchema = new mongoose.Schema({
   _userId: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
     required: true,
   },
-  title: { type: String, required: true },
-  description: String,
-  health: { type: Number, default: 500},
-  energy: { type: Number, default: 20, max: 50},
+  title: String,
+  golds: { type: Number, default: 1},
 });
 
 /*townhallSchema.pre('save', function (next) {
@@ -24,7 +21,7 @@ const townhallSchema = new mongoose.Schema({
       .catch((e) => next({ name: 'MONGOOSE_ERROR' }));
   });
 */
-const Townhall =  mongoose.model('Townhall', townhallSchema);
+const Market =  mongoose.model('Market', marketSchema);
 
 
-module.exports = Townhall
+module.exports = Market

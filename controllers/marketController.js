@@ -1,8 +1,8 @@
-const Townhall = require('../models/Townhall');
+const Market = require('../models/Market');
 
-class townhallController {
+class marketController {
   static list(req, res, next) {
-    Townhall.find({ _userId: req._userId })
+    Market.find({ _userId: req._userId })
     .then((result) => {
       res.status(200).json({ success: true, data: result });
     })
@@ -10,13 +10,12 @@ class townhallController {
   }
 
   static post(req, res, next) {
-    const { title, description } = req.body;
-    const townhall = new Townhall({
+    const { title } = req.body;
+    const market = new Market({
       _userId: req._userId,
-      title,
-      description,
+      title: title,
     });
-    townhall
+    market
       .save()
       .then((result) => {
         res.status(201).json({ success: true, data: result });
@@ -25,7 +24,7 @@ class townhallController {
   }
 
   static get(req, res, next) {
-    Townhall.findOne({ _id: req.params.id })
+    Market.findOne({ _id: req.params.id })
       .then((result) => {
         res.status(200).json({ succes: true, data: result });
       })
@@ -33,11 +32,10 @@ class townhallController {
   }
 
   static put(req, res, next) {
-    const { title, description } = req.body;
-    Townhall.findOne({ _id: req.params.id })
+    const { title} = req.body;
+    Market.findOne({ _id: req.params.id })
       .then((result) => {
         result.title = title;
-        result.description = description;
         return result.save();
       })
       .then((result) => {
@@ -46,10 +44,12 @@ class townhallController {
       .catch(next);
   }
 
+ 
+
   static delete(req, res, next) {
-    Townhall.findOne({ _id: req.params.id })
+    Market.findOne({ _id: req.params.id })
       .then((result) => {
-        return resul.remove();
+        return result.remove();
       })
       .then((result) => {
         res.status(200).json({ success: true, data: { deleted: result } });
@@ -58,4 +58,4 @@ class townhallController {
   }
 }
 
-module.exports = townhallController;
+module.exports = marketController;

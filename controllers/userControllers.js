@@ -9,7 +9,12 @@ class UserController {
     user
       .save()
       .then((user) => {
-        res.status(201).json({ success: true, data: { _id: user._id, email: user.email, nickname } });
+        res.status(201).json({ success: true, data: {
+           _id: user._id,
+            email: user.email, 
+            nickname,
+            resources: user.resources
+        } });
       })
       .catch(next);
       //.catch((e) => next({ name: 'MONGOOSE_ERROR' }));
@@ -25,7 +30,8 @@ class UserController {
         } else throw { name: 'LOGIN_FAILED' };
       })
       .catch(next);
-  }
+    }
+    
 }
 
 module.exports = UserController;

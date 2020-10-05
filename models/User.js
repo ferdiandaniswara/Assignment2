@@ -11,11 +11,13 @@ const userSchema = new mongoose.Schema({
    },
   password: { type: String, trim:true, required: true },
   nickname: String,
-  townhallId:{
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'Townhall',
-  }
-});
+  resources:{
+    golds: {type: Number, default: 100},
+    foods: {type: Number, default: 100},
+    soldiers: {type: Number, default: 0}
+  },
+  
+}); 
 
 userSchema.pre('save', function (next) {
   User.findOne({ email: this.email })
