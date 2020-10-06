@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const barrackSchema = new mongoose.Schema({
     _userId: {
         type: mongoose.Schema.Types.ObjectId,
-        reg: 'User',
+        ref: 'User',
         required: true,
     },
     title: String,

@@ -6,9 +6,12 @@ module.exports = () => {
     {
       useNewUrlParser: true,
       useUnifiedTopology: true,
+      useCreateIndex:true
     }
   );
+
   const db = mongoose.connection;
   db.on('error', (e) => console.log(e));
-  db.once('open', () => console.log('Mongoose connection success!'));
+  db.once('open', () => console.log('Connected to Database'));
+  
 };

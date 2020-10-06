@@ -3,11 +3,11 @@ const mongoose = require('mongoose');
 const farmSchema = new mongoose.Schema({
     _userId: {
         type: mongoose.Schema.Types.ObjectId,
-        reg: 'User',
+        ref: 'User',
         required: true,
     },
     title: String,
-    food: {type:Number, default: 1},
+    foods: {type:Number, default: 1},
 
 });
 

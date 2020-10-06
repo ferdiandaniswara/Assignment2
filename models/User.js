@@ -1,15 +1,21 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
+const validator = require('validator');
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, 
-           trim:true, 
-           required: true,
-           unique: true,
-           index: true,
-           match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
+  email: { 
+    type: String, 
+    trim:true, 
+    required: true,
+    unique: true,
+    index: true,
+    validate(value){
+      if(!validator.isEmail(value)){
+          throw new Error()
+      }
+  },
    },
-  password: { type: String, trim:true, required: true },
+  password: { type: String, trim:true, required: true,  minlength:7 },
   nickname: String,
   resources:{
     golds: {type: Number, default: 100},

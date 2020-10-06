@@ -3,8 +3,25 @@ const Market = require('../models/Market');
 class marketController {
   static list(req, res, next) {
     Market.find({ _userId: req._userId })
-    .then((result) => {
-      res.status(200).json({ success: true, data: result });
+    .select("_id _userId title golds")
+    .exec()
+    .then((results) => {
+      const response = {
+        count: results.length,
+        market: results.map(result =>{
+          return {
+            _id : result._id,
+            _userId: result._userId,
+            title : result.title,
+            golds : result.golds,
+            request :{
+              type: "GET",
+              url : `http://localhost:3000/market/${result._id}`
+            }
+          };
+        })
+      };
+      res.status(200).json(response);
     })
     .catch(next);
   }
@@ -18,7 +35,19 @@ class marketController {
     market
       .save()
       .then((result) => {
-        res.status(201).json({ success: true, data: result });
+        res.status(201).json({
+           success: true,
+           createdMarket: {
+            _id : result._id,
+            _userId: result._userId,
+            title : result.title,
+            golds : result.golds,
+            request :{
+              type: "GET",
+              url :`http://localhost:3000/market/${result._id}`
+           }
+          }
+        });
       })
       .catch(next);
   }
@@ -26,7 +55,15 @@ class marketController {
   static get(req, res, next) {
     Market.findOne({ _id: req.params.id })
       .then((result) => {
-        res.status(200).json({ succes: true, data: result });
+        res.status(201).json({
+          success: true,
+          Market: {
+           _id : result._id,
+           _userId: result._userId,
+           title : result.title,
+           golds : result.golds,
+         }
+       });
       })
       .catch(next);
   }
@@ -39,20 +76,33 @@ class marketController {
         return result.save();
       })
       .then((result) => {
-        res.status(200).json({ succes: true, data: result });
+        res.status(201).json({
+          success: true,
+          updatedMarket: {
+           request :{
+             type: "GET",
+             url : `http://localhost:3000/market/${result._id}`
+          }
+         }
+       });
       })
       .catch(next);
   }
-
- 
-
   static delete(req, res, next) {
     Market.findOne({ _id: req.params.id })
       .then((result) => {
         return result.remove();
       })
       .then((result) => {
-        res.status(200).json({ success: true, data: { deleted: result } });
+        res.status(201).json({
+          success: true,
+          deletedMarket: {
+           _id : result._id,
+           _userId: result._userId,
+           title : result.title,
+           golds : result.golds
+         }
+       });
       })
       .catch(next);
   }

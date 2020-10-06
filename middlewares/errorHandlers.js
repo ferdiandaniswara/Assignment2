@@ -12,14 +12,14 @@ module.exports = (err, req, res, next) => {
         code = 500;
         message = 'Mongoose error!';
         break;
-      case 'ONLY_HAVE_ONE':
-        code = 409;
-        message = 'Only can have one townhall!';
-        break;
       case 'LOGIN_FAILED':
         code = 401;
         message = 'Email and password combination not found!';
         break;
+      case 'REGISTER_FAILED':
+        code = 401;
+        message = 'Register data is invalid!';
+        break;  
       case 'MISSING_TOKEN':
         code = 401;
         message = 'Missing access token!';
