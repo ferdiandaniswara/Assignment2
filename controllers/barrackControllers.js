@@ -57,22 +57,24 @@ class barrackController {
         .catch(next);
       } 
     
-    
-    static get(req, res, next){
-        Barrack.findOne({_id: req.params.id})
-            .then((result)=>{
-                res.status(200).json({ 
-                    success: true,
-                    Barrack: {
-                        _id : result._id,
-                        _userId: result._userId,
-                        title : result.title,
-                        soldiers : result.soldiers,
-                      }
-                });
-            })
-            .catch(next);
-    }
+      static get(req, res, next){
+        const { id } = req.params;
+        Barrack.findById(id)
+        .then((barrack)=>{
+          if(barrack){
+            const soldiers = Math.floor((Date.now() - barrack.lastCollected)/60000);
+            res.status(200).json({
+              success:true,
+              data: barrack,
+              soldiers: soldiers > 50 ? 50 : soldiers,
+            });
+          }else{
+            throw {name: 'NOT_FOUND'};
+          }
+        })
+        .catch(next);
+      }
+
     static put(req, res, next){
         const {title} = req.body;
         Barrack.findOne({_id: req.params.id})

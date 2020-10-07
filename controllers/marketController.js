@@ -58,20 +58,22 @@ class marketController {
     .catch(next);
   } 
 
-  static get(req, res, next) {
-    Market.findOne({ _id: req.params.id })
-      .then((result) => {
-        res.status(201).json({
-          success: true,
-          Market: {
-           _id : result._id,
-           _userId: result._userId,
-           title : result.title,
-           golds : result.golds,
-         }
-       });
-      })
-      .catch(next);
+  static get(req, res, next){
+    const { id } = req.params;
+    Market.findById(id)
+    .then((market)=>{
+      if(market){
+        const golds = Math.floor((Date.now() - market.lastCollected)/60000);
+        res.status(200).json({
+          success:true,
+          data: market,
+          golds: golds > 50 ? 50 : golds,
+        });
+      }else{
+        throw {name: 'NOT_FOUND'};
+      }
+    })
+    .catch(next);
   }
 
   static put(req, res, next) {

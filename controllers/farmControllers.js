@@ -57,18 +57,22 @@ class farmController {
     .catch(next);
   } 
 
-  static get(req, res, next) {
-    Farm.findOne({ _id: req.params.id })
-      .then((result) => {
+  static get(req, res, next){
+    const { id } = req.params;
+    Farm.findById(id)
+    .then((farm)=>{
+      if(farm){
+        const foods = Math.floor((Date.now() - farm.lastCollected)/60000);
         res.status(200).json({
-           succes: true, 
-           _id : result._id,
-           _userId: result._userId,
-           title : result.title,
-           foods : result.foods,
+          success:true,
+          data: farm,
+          foods: foods > 50 ? 50 : foods,
         });
-      })
-      .catch(next);
+      }else{
+        throw {name: 'NOT_FOUND'};
+      }
+    })
+    .catch(next);
   }
 
   static put(req, res, next) {
