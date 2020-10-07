@@ -7,7 +7,10 @@ const marketSchema = new mongoose.Schema({
     required: true,
   },
   title: String,
-  golds: { type: Number, default: 1},
+  lastCollected: {
+    type: Number,
+    default: Date.now(),
+  },
 });
 
 /*townhallSchema.pre('save', function (next) {

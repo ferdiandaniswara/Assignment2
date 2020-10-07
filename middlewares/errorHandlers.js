@@ -10,7 +10,7 @@ module.exports = (err, req, res, next) => {
         break;
       case 'MONGOOSE_ERROR':
         code = 500;
-        message = 'Mongoose error!';
+        message = 'Database error!';
         break;
       case 'LOGIN_FAILED':
         code = 401;
@@ -30,8 +30,12 @@ module.exports = (err, req, res, next) => {
         break;
       case 'NOT_FOUND':
         code = 404;
-        message = 'Resource not found!';
+        message = 'Resource is not found!';
         break;
+      case 'NOT_ENOUGH':
+        code = 403;
+        message = 'Resources is not enough!';
+      break;
       case 'FORBIDDEN':
         code = 403;
         message = 'No access!';
@@ -44,3 +48,4 @@ module.exports = (err, req, res, next) => {
     res.status(code).json({ success: false, message });
   };
   
+ 

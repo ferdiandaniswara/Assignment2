@@ -7,8 +7,10 @@ const barrackSchema = new mongoose.Schema({
         required: true,
     },
     title: String,
-    soldiers: {type:Number, default: 1},
-
+    lastCollected: {
+        type: Number,
+        default: Date.now(),
+      },
 });
 
 const Barrack = mongoose.model('Barrack', barrackSchema);

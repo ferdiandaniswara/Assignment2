@@ -1,4 +1,5 @@
 const Barrack = require('../models/Barrack');
+const User = require('../models/User');
 
 class barrackController {
     static list(req, res, next){
@@ -27,28 +28,35 @@ class barrackController {
     }
 
     static post(req, res, next){
-        const { title } = req.body;
-        const barrack = new Barrack({
+        User.findById(req._userId)
+        .then((user)=>{
+          if(user){
+            if(user.resources.golds >= 30 && user.resources.foods >= 10){
+              const resources = user.resources;
+                resources.golds -= 30;
+                resources.foods -= 10;
+              return User.updateOne({_id: req._userId}, {resources : resources});
+            }else{
+              throw {name: 'NOT_ENOUGH'};
+            }
+          }else{
+            throw {name: 'NOT_FOUND'};
+          }
+        })
+        .then((user)=>{
+          const { title } = req.body;
+          const barrack = new Barrack ({
             _userId: req._userId,
             title: title,
-        });
-        barrack
-        .save()
-        .then((result)=>{
-            res.status(201).json({
-                success: true, 
-                _id : result._id,
-                _userId: result._userId,
-                title : result.title,
-                soldiers : result.soldiers,
-                request :{
-                type: "GET",
-                url :  `http://localhost:3000/barrack/${result._id}`
-            }
-            });
+          })
+          return barrack.save();
+        })
+        .then((barrack)=>{
+          res.status(200).json({ success: true, data: barrack});
         })
         .catch(next);
-    }
+      } 
+    
     
     static get(req, res, next){
         Barrack.findOne({_id: req.params.id})

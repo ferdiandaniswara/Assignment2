@@ -9,19 +9,14 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     index: true,
-    validate(value){
-      if(!validator.isEmail(value)){
-          throw new Error()
-      }
-  },
    },
   password: { type: String, trim:true, required: true,  minlength:7 },
   nickname: String,
   resources:{
     golds: {type: Number, default: 100},
     foods: {type: Number, default: 100},
-    soldiers: {type: Number, default: 0}
-  },
+    soldiers: {type: Number, default: 0},
+},
   
 }); 
 

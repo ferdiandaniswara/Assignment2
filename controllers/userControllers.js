@@ -1,5 +1,7 @@
 const User = require('../models/User');
 const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 
 class UserController {
   static register(req, res, next) {
@@ -16,7 +18,8 @@ class UserController {
         } 
       });
       })
-      .catch((e) => next({ name: 'REGISTER_FAILED' }));
+      .catch(next);
+      //.catch((e) => next({ name: 'MONGOOSE_ERROR' }));
   }
 
   static login(req, res, next) {

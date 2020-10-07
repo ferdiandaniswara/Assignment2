@@ -7,7 +7,10 @@ const farmSchema = new mongoose.Schema({
         required: true,
     },
     title: String,
-    foods: {type:Number, default: 1},
+    lastCollected: {
+        type: Number,
+        default: Date.now(),
+      },
 
 });
 
