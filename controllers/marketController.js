@@ -67,7 +67,7 @@ class marketController {
         res.status(200).json({
           success:true,
           data: market,
-          golds: golds > 50 ? 50 : golds,
+          golds: golds > 20 ? 20 : golds,
         });
       }else{
         throw {name: 'NOT_FOUND'};
@@ -114,23 +114,37 @@ class marketController {
       })
       .catch(next);
   }
+  
   static collect(req, res, next){
-    const golds = 0;
-    Market.findOne({_id : req.params.id})
+    const { id } = req.params;
+    let golds;
+    Market.findById(id)
+    .then((market) => {
+      if(market){
+        golds = Math.floor((Date.now() - market.lastCollected)/ 60000);
+        golds = golds > 20 ? 20 : golds;
+        market.lastCollected = Date.now();
+        return market.save();
+      } else{
+        throw 'NOT_FOUND';
+      }
+    })
     .then((market)=>{
-      golds = 3;
-      return User.findOne({_id : req._userId});
+      return User.findById(req._userId);
     })
-    then(user =>{
-      user.resources.golds += golds;
-      return user.save()
+    .then((user)=>{
+      const resources = user.resources;
+      resources.golds += golds;
+      return User.updateOne({_id: req._userId},{resources: resources});
     })
-    .then(user =>{
-      res.status(200).json({success: true})
+    .then((result)=>{
+      res.status(200).json({
+        success: true,
+        message: `${golds} golds has been added to your resources`,
+        data : result
+      })
     })
-    //console.log('salah')
-    .catch(next)
-    
+    .catch(next);
   }
 
 }

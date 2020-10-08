@@ -8,5 +8,6 @@ router.post('/', farmController.post);
 router.get('/:id',farmAuth, farmController.get);
 router.put('/:id',farmAuth, farmController.put);
 router.delete('/:id',farmAuth, farmController.delete);
+router.get('/:id/collect',farmAuth, farmController.collect)
 
 module.exports = router;

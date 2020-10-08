@@ -31,10 +31,10 @@ class farmController {
     User.findById(req._userId)
     .then((user)=>{
       if(user){
-        if(user.resources.golds >= 30 && user.resources.foods >= 10){
+        if(user.resources.golds >= 10 && user.resources.foods >= 30){
           const resources = user.resources;
-          resources.golds -= 30;
-          resources.foods -= 10;
+          resources.golds -= 10;
+          resources.foods -= 30;
           return User.updateOne({_id: req._userId}, {resources : resources});
         }else{
           throw {name: 'NOT_ENOUGH'};
@@ -66,7 +66,7 @@ class farmController {
         res.status(200).json({
           success:true,
           data: farm,
-          foods: foods > 50 ? 50 : foods,
+          foods: foods > 20 ? 20 : foods,
         });
       }else{
         throw {name: 'NOT_FOUND'};
@@ -115,6 +115,37 @@ class farmController {
         });
       })
       .catch(next);
+  }
+  static collect(req, res, next){
+    const { id } = req.params;
+    let foods;
+    Farm.findById(id)
+    .then((farm) => {
+      if(farm){
+        foods = Math.floor((Date.now() - farm.lastCollected)/ 60000);
+        foods = foods > 20 ? 20 : foods;
+        farm.lastCollected = Date.now();
+        return farm.save();
+      } else{
+        throw 'NOT_FOUND';
+      }
+    })
+    .then((farm)=>{
+      return User.findById(req._userId);
+    })
+    .then((user)=>{
+      const resources = user.resources;
+      resources.foods += foods;
+      return User.updateOne({_id: req._userId},{resources: resources});
+    })
+    .then((result)=>{
+      res.status(200).json({
+        success: true,
+        message: `${foods} foods has been added to your resources`,
+        data : result
+      })
+    })
+    .catch(next);
   }
 }
 

@@ -31,10 +31,10 @@ class barrackController {
         User.findById(req._userId)
         .then((user)=>{
           if(user){
-            if(user.resources.golds >= 30 && user.resources.foods >= 10){
+            if(user.resources.golds >= 30 && user.resources.foods >= 30){
               const resources = user.resources;
                 resources.golds -= 30;
-                resources.foods -= 10;
+                resources.foods -= 30;
               return User.updateOne({_id: req._userId}, {resources : resources});
             }else{
               throw {name: 'NOT_ENOUGH'};
@@ -66,7 +66,7 @@ class barrackController {
             res.status(200).json({
               success:true,
               data: barrack,
-              soldiers: soldiers > 50 ? 50 : soldiers,
+              soldiers: soldiers > 10 ? 10 : soldiers,
             });
           }else{
             throw {name: 'NOT_FOUND'};
@@ -114,6 +114,39 @@ class barrackController {
         })
         .catch(next);
     }
+    static collect(req, res, next){
+        const { id } = req.params;
+        let soldiers;
+        Barrack.findById(id)
+        .then((barrack) => {
+          if(barrack){
+            soldiers = Math.floor((Date.now() - barrack.lastCollected)/ 60000);
+            soldiers = soldiers > 10 ? 10 : soldiers;
+            barrack.lastCollected = Date.now();
+            return barrack.save();
+          } else{
+            throw 'NOT_FOUND';
+          }
+        })
+        .then((barrack)=>{
+          return User.findById(req._userId);
+        })
+        .then((user)=>{
+          const resources = user.resources;
+          resources.soldiers += soldiers;
+          return User.updateOne({_id: req._userId},{resources: resources});
+        })
+        .then((result)=>{
+          res.status(200).json({
+            success: true,
+            message: `${soldiers} foods has been added to your resources`,
+            data : result
+          })
+        })
+        .catch(next);
+      }
+
+
 }
 
 module.exports = barrackController;
