@@ -14,5 +14,16 @@ const farmSchema = new mongoose.Schema({
 
 });
 
+farmSchema.pre('save', function(next){
+    Farm.findOne({title: this.title})
+    .then((result)=>{
+        if(result) next ({name : 'EXISTS'});
+        else{
+            next();
+        }
+    })
+    .catch(next);
+})
+
 const Farm = mongoose.model('Farm', farmSchema);
 module.exports = Farm

@@ -4,17 +4,16 @@ const User = require('../models/User');
 class barrackController {
     static list(req, res, next){
         Barrack.find({_userId: req._userId})
-        .select("_id _userId title soldiers")
+        .select("_id _userId title")
         .exec()
         .then((results) => {
-        const response = {
-            count: results.length,
+        const lists = {
+            Total: results.length,
             barrack: results.map(result =>{
             return {
                 _id : result._id,
                 _userId: result._userId,
                 title : result.title,
-                soldiers : result.soldiers,
                 request :{
                 type: "GET",
                 url : `http://localhost:3000/barrack/${result._id}`
@@ -22,9 +21,9 @@ class barrackController {
           };
         })
       };
-      res.status(200).json(response);
+      res.status(200).json(lists);
     })
-        .catch(next);
+      .catch(next);
     }
 
     static post(req, res, next){
@@ -52,7 +51,15 @@ class barrackController {
           return barrack.save();
         })
         .then((barrack)=>{
-          res.status(200).json({ success: true, data: barrack});
+          res.status(200).json({ 
+            success: true, 
+            message: 'Barrack has been created!',
+            Barrack: {
+             id: barrack._id,
+             owner: barrack._userId,
+             title: barrack.title,
+            }
+          });
         })
         .catch(next);
       } 
@@ -61,16 +68,12 @@ class barrackController {
         const { id } = req.params;
         Barrack.findById(id)
         .then((barrack)=>{
-          if(barrack){
             const soldiers = Math.floor((Date.now() - barrack.lastCollected)/60000);
             res.status(200).json({
               success:true,
               data: barrack,
               soldiers: soldiers > 10 ? 10 : soldiers,
             });
-          }else{
-            throw {name: 'NOT_FOUND'};
-          }
         })
         .catch(next);
       }
@@ -108,7 +111,6 @@ class barrackController {
                     _id : result._id,
                     _userId: result._userId,
                     title : result.title,
-                    soldiers : result.soldiers
                   }
             });
         })
@@ -119,28 +121,26 @@ class barrackController {
         let soldiers;
         Barrack.findById(id)
         .then((barrack) => {
-          if(barrack){
             soldiers = Math.floor((Date.now() - barrack.lastCollected)/ 60000);
             soldiers = soldiers > 10 ? 10 : soldiers;
-            barrack.lastCollected = Date.now();
-            return barrack.save();
-          } else{
-            throw 'NOT_FOUND';
-          }
+            return Barrack.updateOne({_id : id},{lastCollected :  Date.now()})
         })
         .then((barrack)=>{
           return User.findById(req._userId);
         })
         .then((user)=>{
+          if(user.resources.soldiers > 500){
+            throw {name:'1000'}
+          }else{
           const resources = user.resources;
           resources.soldiers += soldiers;
           return User.updateOne({_id: req._userId},{resources: resources});
+          }
         })
         .then((result)=>{
           res.status(200).json({
             success: true,
-            message: `${soldiers} foods has been added to your resources`,
-            data : result
+            message: `${soldiers} foods has been added to your resources!`,
           })
         })
         .catch(next);

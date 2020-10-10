@@ -8,6 +8,14 @@ module.exports = (err, req, res, next) => {
         code = 409;
         message = `Account is already exists!`;
         break;
+      case 'EXISTS':
+        code = 409;
+        message = `Name is already exists!`;
+        break;  
+      case 'TO_MUCH':
+        code = 409;
+        message = `Cannot have barrack more than 30!`;
+        break;  
       case 'MONGOOSE_ERROR':
         code = 500;
         message = 'Database error!';
@@ -16,6 +24,10 @@ module.exports = (err, req, res, next) => {
         code = 401;
         message = 'Email and password combination not found!';
         break;
+      case '1000':
+        code = 409;
+        message = 'Cannot have more than 1000';
+        break;  
       case 'REGISTER_FAILED':
         code = 401;
         message = 'Register data is invalid!';

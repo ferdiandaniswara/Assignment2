@@ -19,7 +19,6 @@ class UserController {
       });
       })
       .catch(next);
-      //.catch((e) => next({ name: 'MONGOOSE_ERROR' }));
   }
 
   static login(req, res, next) {

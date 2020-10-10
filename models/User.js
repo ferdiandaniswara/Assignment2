@@ -9,14 +9,16 @@ const userSchema = new mongoose.Schema({
     required: true,
     unique: true,
     index: true,
+    match: /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/,
    },
-  password: { type: String, trim:true, required: true,  minlength:7 },
+  password: { type: String, trim:true, required: true,  minlength:7},
   nickname: String,
   resources:{
     golds: {type: Number, default: 100},
     foods: {type: Number, default: 100},
     soldiers: {type: Number, default: 0},
 },
+  medals : {type: Number, default: 0},
   
 }); 
 

@@ -13,17 +13,17 @@ const marketSchema = new mongoose.Schema({
   },
 });
 
-/*townhallSchema.pre('save', function (next) {
-    Townhall.find()
-      .then((result) => {
-        if (!result) next({ name: 'ONLY_HAVE_ONE' });
-        else {
-          next();
-        }
-      })
-      .catch((e) => next({ name: 'MONGOOSE_ERROR' }));
-  });
-*/
+marketSchema.pre('save', function (next){
+  Market.findOne({title: this.title})
+  .then((result)=>{
+    if(result) next ({ name : 'EXISTS'});
+    else{
+      next();
+    }
+  })
+  .catch(next)
+});
+
 const Market =  mongoose.model('Market', marketSchema);
 
 

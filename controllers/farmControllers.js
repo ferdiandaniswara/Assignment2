@@ -4,17 +4,16 @@ const User = require('../models/User');
 class farmController {
   static list(req, res, next) {
     Farm.find({ _userId: req._userId })
-    .select("_id _userId title foods")
+    .select("_id _userId title")
     .exec()
     .then((results) => {
-      const response = {
-        count: results.length,
+      const lists = {
+        Total: results.length,
         farm: results.map(result =>{
           return {
             _id : result._id,
             _userId: result._userId,
             title : result.title,
-            foods : result.foods,
             request :{
               type: "GET",
               url : `http://localhost:3000/farm/${result._id}`
@@ -22,7 +21,7 @@ class farmController {
           };
         })
       };
-      res.status(200).json(response);
+      res.status(200).json(lists);
     })
     .catch(next);
   }
@@ -52,7 +51,15 @@ class farmController {
       return farm.save();
     })
     .then((farm)=>{
-      res.status(200).json({ success: true, data: farm});
+      res.status(200).json({ 
+        success: true, 
+        message: 'Farm has been created!',
+        Farm: {
+         id: farm._id,
+         owner: farm._userId,
+         title: farm.title,
+        }
+      });
     })
     .catch(next);
   } 
@@ -61,16 +68,12 @@ class farmController {
     const { id } = req.params;
     Farm.findById(id)
     .then((farm)=>{
-      if(farm){
         const foods = Math.floor((Date.now() - farm.lastCollected)/60000);
         res.status(200).json({
           success:true,
           data: farm,
           foods: foods > 20 ? 20 : foods,
         });
-      }else{
-        throw {name: 'NOT_FOUND'};
-      }
     })
     .catch(next);
   }
@@ -110,39 +113,36 @@ class farmController {
             _id : result._id,
             _userId: result._userId,
             title : result.title,
-            foods : result.foods
           } 
         });
       })
       .catch(next);
   }
-  static collect(req, res, next){
+    static collect(req, res, next){
     const { id } = req.params;
     let foods;
     Farm.findById(id)
     .then((farm) => {
-      if(farm){
         foods = Math.floor((Date.now() - farm.lastCollected)/ 60000);
         foods = foods > 20 ? 20 : foods;
-        farm.lastCollected = Date.now();
-        return farm.save();
-      } else{
-        throw 'NOT_FOUND';
-      }
+        return Farm.updateOne({_id : id},{lastCollected : Date.now()});
     })
     .then((farm)=>{
       return User.findById(req._userId);
     })
     .then((user)=>{
+      if(user.resources.foods > 1000){
+        throw {name: '1000'}
+      }else{
       const resources = user.resources;
       resources.foods += foods;
       return User.updateOne({_id: req._userId},{resources: resources});
+      }
     })
     .then((result)=>{
       res.status(200).json({
         success: true,
-        message: `${foods} foods has been added to your resources`,
-        data : result
+        message: `${foods} foods has been added to your resources!`,
       })
     })
     .catch(next);
