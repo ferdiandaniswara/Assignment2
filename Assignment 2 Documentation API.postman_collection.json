@@ -1,0 +1,890 @@
+{
+	"info": {
+		"_postman_id": "c0938c89-c7f3-4450-901f-10d4b6a0b075",
+		"name": "Assignment 2 Documentation API",
+		"description": "# Introduction\nWhat does your API do?\nFor registration, login, manage resource and attacking opponent\n# Overview\nThings that the developers should know about\n\n# Authentication\nWhat is the preferred way of using the API?\n\n# Error Codes\nWhat errors and status codes can a user expect?\n\n# Rate limit\nIs there a limit to the number of requests an user can send?",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "http://localhost:3000/register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "testing@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						},
+						{
+							"key": "nickname",
+							"value": "testing",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"register"
+					],
+					"query": [
+						{
+							"key": "nickname",
+							"value": "teting",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Default",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost:3000/register",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"register"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": ""
+				}
+			]
+		},
+		{
+			"name": "http://localhost:3000/users/login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "email",
+							"value": "testing@gmail.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "123456789",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": []
+				},
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/markets",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/markets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"markets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/markets",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/markets",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"markets"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/markets/:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/markets/?id=5f82882be46ffc3220e07070",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"markets",
+						""
+					],
+					"query": [
+						{
+							"key": "id",
+							"value": "5f82882be46ffc3220e07070"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/markets/:id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/markets/5f82882be46ffc3220e07070",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"markets",
+						"5f82882be46ffc3220e07070"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/markets/:id/collect",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/markets/5f82882be46ffc3220e07070/collect",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"markets",
+						"5f82882be46ffc3220e07070",
+						"collect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/markets/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/markets/5f82882be46ffc3220e07070",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"markets",
+						"5f82882be46ffc3220e07070"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/barracks",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/barracks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"barracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/barracks/",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/barracks",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"barracks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/barracks/:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "market 12",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/barracks/5f82a0a7f1a8f54968cda864",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"barracks",
+						"5f82a0a7f1a8f54968cda864"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/barracks/:id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "barrack 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/barracks/5f82a0a7f1a8f54968cda864",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"barracks",
+						"5f82a0a7f1a8f54968cda864"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/barracks/:id/collect",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "barrack 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/barracks/5f82a0a7f1a8f54968cda864/collect",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"barracks",
+						"5f82a0a7f1a8f54968cda864",
+						"collect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/barracks/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "barrack 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/barracks/5f82a0a7f1a8f54968cda864",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"barracks",
+						"5f82a0a7f1a8f54968cda864"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/farms",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "barrack 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/farms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/farms",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "barrack 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/farms",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farms"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/farms/:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "barrack 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/farms/5f82a17e463c9e3048a36e5f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farms",
+						"5f82a17e463c9e3048a36e5f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/farms/:id",
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "farm 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/farms/5f82a17e463c9e3048a36e5f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farms",
+						"5f82a17e463c9e3048a36e5f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/farms/:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "farm 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/farms/5f82a17e463c9e3048a36e5f/collect",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farms",
+						"5f82a17e463c9e3048a36e5f",
+						"collect"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/farms/:id",
+			"request": {
+				"method": "DELETE",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "title",
+							"value": "farm 1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/farms/5f82a17e463c9e3048a36e5f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"farms",
+						"5f82a17e463c9e3048a36e5f"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:3000/attacks/:id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "access_token",
+						"type": "text",
+						"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI1ZjgyODY4M2U0NmZmYzMyMjBlMDcwNmQiLCJpYXQiOjE2MDIzODk3ODl9.g3pDnC_rp32sa0icX11T0_X2yG-P3b5FyNV2HgGLLfc"
+					}
+				],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "soldiers",
+							"value": "10",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "http://localhost:3000/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"id": "4d1fbb8d-7ccc-4fad-9fe9-e6e2cdf3699c",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"id": "80c80ee9-0ba7-4e72-9ad0-fb0b1efa3873",
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"protocolProfileBehavior": {}
+}

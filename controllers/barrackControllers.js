@@ -140,7 +140,7 @@ class barrackController {
         .then((result)=>{
           res.status(200).json({
             success: true,
-            message: `${soldiers} foods has been added to your resources!`,
+            message: `${soldiers} soldiers has been added to your resources!`,
           })
         })
         .catch(next);

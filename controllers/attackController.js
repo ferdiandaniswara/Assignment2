@@ -6,7 +6,7 @@ class AttackController {
     for (let i = 0; i < 3; i++) {
       arr.push(Math.random() < attackerSoldiers / (defenderSoldiers + 1));
     }
-    return arr.filter((el) => el).length >= 2 ? true : false;
+    return arr.filter((el) => el).length >= 1 ? true : false;
   }
 
   static attack(req, res, next) {
@@ -21,7 +21,7 @@ class AttackController {
           attacker = user;
           return User.findById({ _id: defenderId });
         } else {
-          throw {name :'NOT_FOUND'};
+          throw {name :'USER_NOT_FOUND'};
         }
       })
       .then((user) => {
@@ -35,7 +35,7 @@ class AttackController {
             throw {name:'NOT_ENOUGH'};
           }
         } else {
-          throw {name:'NOT_FOUND'};
+          throw {name:'USER_NOT_FOUND'};
         }
       })
       .then((user) => {

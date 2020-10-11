@@ -48,6 +48,10 @@ module.exports = (err, req, res, next) => {
         code = 403;
         message = 'Resources is not enough!';
       break;
+      case 'USER_NOT_FOUND':
+        code = 403;
+        message = 'User is not found!';
+      break;
       case 'FORBIDDEN':
         code = 403;
         message = 'No access!';

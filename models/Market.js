@@ -13,16 +13,7 @@ const marketSchema = new mongoose.Schema({
   },
 });
 
-marketSchema.pre('save', function (next){
-  Market.findOne({title: this.title})
-  .then((result)=>{
-    if(result) next ({ name : 'EXISTS'});
-    else{
-      next();
-    }
-  })
-  .catch(next)
-});
+
 
 const Market =  mongoose.model('Market', marketSchema);
 

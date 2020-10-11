@@ -13,16 +13,7 @@ const barrackSchema = new mongoose.Schema({
       },
 });
 
-barrackSchema.pre('save', function(next){
-    Barrack.findOne({title: this.title})
-    .then((result)=>{
-        if(result) next ({ name : 'EXISTS'});
-        else{
-            next();
-        }
-    })
-    .catch(next)
-});
+
 
 const Barrack = mongoose.model('Barrack', barrackSchema);
 module.exports = Barrack

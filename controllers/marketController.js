@@ -10,7 +10,7 @@ class marketController {
     .exec()
     .then((results) => {
       const lists = {
-        count: results.length,
+        Total: results.length,
         market: results.map(result =>{
           return {
             _id : result._id,

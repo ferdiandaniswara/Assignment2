@@ -118,6 +118,7 @@ class farmController {
       })
       .catch(next);
   }
+  
     static collect(req, res, next){
     const { id } = req.params;
     let foods;
